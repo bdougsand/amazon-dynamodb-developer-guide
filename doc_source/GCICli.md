@@ -71,12 +71,13 @@ aws dynamodb describe-table --table-name GameScores
 
 ## Query a global secondary index<a name="GCICli.QueryAnIndex"></a>
 
-You can use the `query` operation on a global secondary index in much the same way that you `query` a table\. You must specify the index name, the query criteria for the index sort key, and the attributes that you want to return\. In this example, the index is `GameTitleIndex` and the index sort key is `GameTitle`\.
+You can use the `query` operation on a global secondary index in much the same way that you `query` a table\. You must specify the table name, the index name, the query criteria for the index sort key, and the attributes that you want to return\. In this example, the index is `GameTitleIndex` and the index sort key is `GameTitle`\.
 
 The only attributes returned are those that have been projected into the index\. You could modify this query to select non\-key attributes too, but this would require table fetch activity that is relatively expensive\. For more information about table fetches, see [Attribute Projections](GSI.md#GSI.Projections)\.
 
 ```
 aws dynamodb query \
+    --table-name GameScores \
     --index-name GameTitleIndex \
     --key-condition-expression "GameTitle = :v_game" \
     --expression-attribute-values '{":v_game":{"S":"Alien Adventure"} }'
